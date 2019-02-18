@@ -39,10 +39,10 @@ void Widget::data_read_finished()
     if( reply->error()) {
         QMessageBox::critical(this,
                               "!",
-                              "There was an error processing the request");
+                              reply->errorString());
     } else {
         QMessageBox::information(this,
                                  "!",
-                                 "There was not an error processing the request");
+                                 QString(*buffer_array));
     }
 }
