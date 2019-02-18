@@ -1,6 +1,10 @@
 #include "widget.h"
 #include "ui_widget.h"
 #include <QMessageBox>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QVariantMap>
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -41,8 +45,17 @@ void Widget::data_read_finished()
                               "!",
                               reply->errorString());
     } else {
-        QMessageBox::information(this,
-                                 "!",
-                                 QString(*buffer_array));
+       QJsonDocument json_doc = QJsonDocument::fromJson(*buffer_array);
+       QJsonArray const array = json_doc.array();
+
+       for( int i = 0; i < array.size();++i )
+       {
+           QJsonObject object = array.at(i).toObject();
+           QVariantMap map = object.toVariantMap();
+
+           QString title = map["title"].toString();
+           qInfo() << "title[" << QString::number(i) << "] "
+                   << title << "\n";
+       }
     }
 }
