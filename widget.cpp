@@ -14,6 +14,7 @@ Widget::Widget(QWidget *parent) :
     buffer_array(new QByteArray)
 
 {
+    setFixedSize(850,850);
     ui->setupUi(this);  
 }
 
@@ -47,15 +48,26 @@ void Widget::data_read_finished()
     } else {
        QJsonDocument json_doc = QJsonDocument::fromJson(*buffer_array);
        QJsonArray const array = json_doc.array();
-
+       ui->list_widget->addItem("[");
        for( int i = 0; i < array.size();++i )
        {
+           ui->list_widget->addItem("   {");
            QJsonObject object = array.at(i).toObject();
            QVariantMap map = object.toVariantMap();
 
+           // get the the values from the keys
+           QString user_id = map["userId"].toString();
+           QString id = map["id"].toString();
            QString title = map["title"].toString();
-           qInfo() << "title[" << QString::number(i) << "] "
-                   << title << "\n";
+           QString body = map["body"].toString();
+
+           //add values to the list_widget
+           ui->list_widget->addItem( "      userId: " + user_id);
+           ui->list_widget->addItem( "      id: " + id);
+           ui->list_widget->addItem("       title: " + title);
+           ui->list_widget->addItem("       body: " + body);
+           ui->list_widget->addItem("   },");
        }
+       ui->list_widget->addItem("]");
     }
 }
