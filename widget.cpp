@@ -5,6 +5,8 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QVariantMap>
+
+
 //==============================================================================
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
@@ -21,6 +23,7 @@ Widget::Widget(QWidget *parent) :
 Widget::~Widget()
 {
     delete ui;
+
 }
 //==============================================================================
 void Widget::on_fetch_button_clicked()
