@@ -21,7 +21,6 @@ Widget::Widget(QWidget *parent) :
 Widget::~Widget()
 {
     delete ui;
-    delete buffer_array;
 }
 //==============================================================================
 void Widget::on_fetch_button_clicked()
