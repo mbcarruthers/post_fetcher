@@ -23,6 +23,7 @@ Widget::Widget(QWidget *parent) :
 Widget::~Widget()
 {
     delete ui;
+    delete buffer_array;
 
 }
 //==============================================================================
